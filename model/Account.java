@@ -8,7 +8,7 @@ public abstract class Account implements Serializable {
 
     private String accountNumber;
     private String name;
-    private double balance;
+    protected double balance;
     private List<Transaction> transactions;
 
     public Account(String accountNumber, String name, double balance){
