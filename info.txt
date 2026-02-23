@@ -71,4 +71,18 @@ Transaction.java
                 System.out.println("Bark");
             }
         }
+
+2. Account
+
+Account.java
+
+    Account is base class.
+    We create Account class as abstract class.
+    We cannot create object of Account directly.
+
+    So we create child class of the Account :
+        eg. class SavingsAccount extends Account
+        because, withdrawal rules differs for the Savings and current account.
+        
+
             

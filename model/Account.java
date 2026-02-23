@@ -1,1 +1,47 @@
+package model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class Account implements Serializable {
+
+    private String accountNumber;
+    private String name;
+    private double balance;
+    private List<Transaction> transactions;
+
+    public Account(String accountNumber, String name, double balance){
+        this.accountNumber = accountNumber;
+        this.name = name;
+        this.balance = balance;
+        this.transactions = new ArrayList<>();
+    }
+
+    public void deposit(double amount){
+        balance += amount;
+        transactions.add(new Transaction("DEPOSIT", amount));
+    }
+
+    public abstract void withdraw(double amount);
+
+    public void addTransaction(Transaction t){
+        transactions.add(t);
+    }
+    
+    public String getAccountNumber(){
+        return accountNumber;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public double getBalance(){
+        return balance;
+    }
+
+    public List<Transaction> getTransaction(){
+        return transactions;
+    }
+}
