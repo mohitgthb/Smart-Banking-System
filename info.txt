@@ -1,0 +1,74 @@
+SmartBankingSystem/
+│
+├── model/
+│   ├── Account.java
+│   ├── SavingsAccount.java
+│   ├── CurrentAccount.java
+│   ├── Transaction.java
+│
+├── repository/
+│   ├── BankRepository.java
+│   ├── FileStorage.java
+│
+├── service/
+│   ├── AccountService.java
+│   ├── TransactionService.java
+│
+├── exception/
+│   ├── InsufficientBalanceException.java
+│   ├── AccountNotFoundException.java
+│
+├── strategy/
+│   ├── InterestStrategy.java
+│   ├── SavingsInterest.java
+│   ├── CurrentInterest.java
+│
+├── util/
+│   ├── IdGenerator.java
+│   ├── FileUtil.java
+│
+├── app/
+│   └── Main.java
+
+
+1. Transaction
+
+Transaction.java
+
+    # package concept
+        Syntax:
+            package model;
+        
+        package is used to organize classes.
+        think like folders.
+
+        Why used?
+            Avoid naming conflicts.
+            Code organization.
+            Used in layered architecture-MVC.
+        
+        Here- model->data classes
+    
+    # Serializale interface - IMP 
+        It allow an object to be converted into byte stream so it can be:
+            Saved to file.
+            Sent over network.
+            Stored in DB.
+
+            ex. save transaction history.
+            this show interface implementation - OOP
+
+    #interface:
+        "implements" is used when a class wants to use an interface
+        It means the class promises to provide implementation of interface methods
+
+        interface Animal {
+          void sound();   // method declaration
+        }
+
+        class Dog implements Animal {
+            public void sound() {
+                System.out.println("Bark");
+            }
+        }
+            
