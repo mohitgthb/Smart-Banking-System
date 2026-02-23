@@ -1,5 +1,7 @@
 package model;
 
+import exception.InsufficientBalanceException;
+
 public class CurrentAccount extends Account {
     
     private double overdraftLimit = 5000;
@@ -9,7 +11,7 @@ public class CurrentAccount extends Account {
     }
 
     @Override
-    public void withdraw(double amount){
+    public void withdraw(double amount) throws InsufficientBalanceException{
         if(balance + overdraftLimit >= amount) {
             balance -= amount;
             addTransaction(new Transaction("WITHDRAW", amount));

@@ -1,5 +1,7 @@
 package service;
 
+import exception.AccountNotFoundException;
+import exception.InsufficientBalanceException;
 import model.*;
 import repository.BankRepository;
 
@@ -16,7 +18,7 @@ public class AccountService {
         repo.addAccount(acc);
     }
 
-    public void deposit(String accNo, double amount){
+    public void deposit(String accNo, double amount) throws AccountNotFoundException{
         Account acc = repo.getAccount(accNo);
         if(acc != null){
             acc.deposit(amount);
@@ -25,7 +27,8 @@ public class AccountService {
         }
     }
 
-    public void withdraw(String accNo, double amount){
+    public void withdraw(String accNo, double amount) 
+            throws AccountNotFoundException, InsufficientBalanceException{
         Account acc = repo.getAccount(accNo);
         if(acc != null){
             acc.withdraw(amount);
@@ -34,7 +37,8 @@ public class AccountService {
         }
     }
 
-    public void transfer(String fromAcc, String toAcc, double amount){
+    public void transfer(String fromAcc, String toAcc, double amount)
+            throws AccountNotFoundException, InsufficientBalanceException{
         Account sender = repo.getAccount(fromAcc);
         Account receiver = repo.getAccount(toAcc);
 

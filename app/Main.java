@@ -15,7 +15,11 @@ public class Main {
         service.createSavingsAccount("101", "Mohit", 10000);
         service.createCurrentAccount("102", "Hutej", 5000);
 
-        service.transfer("101", "102", 1000);
+        try{
+            service.transfer("101", "102", 1000);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         // repo.addAccount(acc);
         Account acc = repo.getAccount("102");

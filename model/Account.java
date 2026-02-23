@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.InsufficientBalanceException;
+
 public abstract class Account implements Serializable {
 
     private String accountNumber;
@@ -23,7 +25,7 @@ public abstract class Account implements Serializable {
         transactions.add(new Transaction("DEPOSIT", amount));
     }
 
-    public abstract void withdraw(double amount);
+    public abstract void withdraw(double amount) throws InsufficientBalanceException;
 
     public void addTransaction(Transaction t){
         transactions.add(t);

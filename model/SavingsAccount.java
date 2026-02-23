@@ -1,5 +1,7 @@
 package model;
 
+import exception.InsufficientBalanceException;
+
 public class SavingsAccount extends Account {
 
     public SavingsAccount(String accountNumber, String name, double balance) {
@@ -7,7 +9,7 @@ public class SavingsAccount extends Account {
     }
 
     @Override
-    public void withdraw(double amount){
+    public void withdraw(double amount) throws InsufficientBalanceException{
         if(balance >= amount){
             balance -= amount;
             addTransaction(new Transaction("WITHDRAW", amount));
