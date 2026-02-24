@@ -8,6 +8,8 @@ import exception.InsufficientBalanceException;
 
 public abstract class Account implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private String accountNumber;
     private String name;
     protected double balance;

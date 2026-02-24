@@ -12,7 +12,8 @@ public class BankRepository{
     private Map<String, Account> accounts;
 
     private BankRepository(){
-        accounts = new HashMap<>();
+       // accounts = new HashMap<>();
+       accounts = FileStorage.load();
     }
 
     public static BankRepository getInstance(){
@@ -34,5 +35,11 @@ public class BankRepository{
         return accounts;
     }
 
+    public void saveData(){
+        FileStorage.save(accounts);
+    }
 
+    public void loadData(){
+        accounts = FileStorage.load();
+    }
 }

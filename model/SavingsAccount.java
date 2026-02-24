@@ -4,6 +4,8 @@ import exception.InsufficientBalanceException;
 
 public class SavingsAccount extends Account {
 
+    private static final long serialVersionUID = 1L;
+
     public SavingsAccount(String accountNumber, String name, double balance) {
         super(accountNumber, name, balance);
     }

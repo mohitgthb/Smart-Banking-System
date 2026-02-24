@@ -12,17 +12,18 @@ public class Main {
        // SavingsAccount acc = new SavingsAccount("101", "Mohit", 10000);
         AccountService service = new AccountService();
 
-        service.createSavingsAccount("101", "Mohit", 10000);
-        service.createCurrentAccount("102", "Hutej", 5000);
+       // service.createSavingsAccount("101", "Mohit", 10000);
+       // service.createCurrentAccount("102", "Hutej", 5000);
 
         try{
             service.transfer("101", "102", 1000);
+            repo.saveData();
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
 
         // repo.addAccount(acc);
-        Account acc = repo.getAccount("102");
+        Account acc = repo.getAccount("101");
 
         System.out.println(acc.getName());
 

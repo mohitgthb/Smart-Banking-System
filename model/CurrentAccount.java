@@ -3,7 +3,9 @@ package model;
 import exception.InsufficientBalanceException;
 
 public class CurrentAccount extends Account {
-    
+
+    private static final long serialVersionUID = 1L;
+
     private double overdraftLimit = 5000;
 
     public CurrentAccount(String accountNumber, String name, double balance){
