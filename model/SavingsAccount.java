@@ -1,6 +1,7 @@
 package model;
 
 import exception.InsufficientBalanceException;
+import strategy.SavingsInterest;
 
 public class SavingsAccount extends Account {
 
@@ -8,6 +9,7 @@ public class SavingsAccount extends Account {
 
     public SavingsAccount(String accountNumber, String name, double balance) {
         super(accountNumber, name, balance);
+        this.interestStrategy = new SavingsInterest();
     }
 
     @Override

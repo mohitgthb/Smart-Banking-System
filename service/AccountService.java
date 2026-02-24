@@ -4,17 +4,23 @@ import exception.AccountNotFoundException;
 import exception.InsufficientBalanceException;
 import model.*;
 import repository.BankRepository;
+import factory.*;
 
 public class AccountService {
     private BankRepository repo = BankRepository.getInstance();
 
-    public void createSavingsAccount(String accNo, String name, double balance){
-        Account acc = new SavingsAccount(accNo, name, balance);
-        repo.addAccount(acc);
-    }
+    // public void createSavingsAccount(String accNo, String name, double balance){
+    //     Account acc = new SavingsAccount(accNo, name, balance);
+    //     repo.addAccount(acc);
+    // }
 
-    public void createCurrentAccount(String accNo, String name, double balance){
-        Account acc = new CurrentAccount(accNo, name, balance);
+    // public void createCurrentAccount(String accNo, String name, double balance){
+    //     Account acc = new CurrentAccount(accNo, name, balance);
+    //     repo.addAccount(acc);
+    // }
+
+    public void createAccount(String type, String accNo, String name, double balance){
+        Account acc = AccountFactory.createAccount(type, accNo, name, balance);
         repo.addAccount(acc);
     }
 
