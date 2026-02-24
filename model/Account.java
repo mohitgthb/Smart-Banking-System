@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exception.InsufficientBalanceException;
+import strategy.InterestStrategy;
 
 public abstract class Account implements Serializable {
 
@@ -14,6 +15,7 @@ public abstract class Account implements Serializable {
     private String name;
     protected double balance;
     private List<Transaction> transactions;
+    protected InterestStrategy interestStrategy;
 
     public Account(String accountNumber, String name, double balance){
         this.accountNumber = accountNumber;
@@ -47,5 +49,9 @@ public abstract class Account implements Serializable {
 
     public List<Transaction> getTransaction(){
         return transactions;
+    }
+
+    public double calculateInterest(){
+        return interestStrategy.calculate(balance);
     }
 }
