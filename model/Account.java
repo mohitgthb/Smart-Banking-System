@@ -15,7 +15,7 @@ public abstract class Account implements Serializable {
     private String name;
     protected double balance;
     private List<Transaction> transactions;
-    protected InterestStrategy interestStrategy;
+    protected transient InterestStrategy interestStrategy;
 
     public Account(String accountNumber, String name, double balance){
         this.accountNumber = accountNumber;

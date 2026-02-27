@@ -23,4 +23,11 @@ public class CurrentAccount extends Account {
             System.out.println("Overdraft limit exceeded");
         }
     }
+
+    private void readObject(java.io.ObjectInputStream in)
+        throws Exception {
+
+    in.defaultReadObject();
+    this.interestStrategy = new strategy.CurrentInterest();
+}
 }

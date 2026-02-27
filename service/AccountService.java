@@ -57,6 +57,15 @@ public class AccountService {
                 receiver.deposit(amount);
             }
         }
-        
+    }
+
+    public double getBalance(String accNo) throws AccountNotFoundException{
+        Account acc = repo.getAccount(accNo);
+        if(acc != null){
+            return repo.getBalance(accNo);
+        } else {
+            System.out.println("Account not found");
+            throw new AccountNotFoundException("Account not found: " + accNo);
+        }
     }
 }

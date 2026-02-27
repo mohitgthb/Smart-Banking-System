@@ -31,6 +31,14 @@ public class BankRepository{
         return accounts.get(accountNumber);
     }
 
+    public double getBalance(String accountNumber) {
+        Account acc = accounts.get(accountNumber);
+        if (acc != null) {
+            return acc.getBalance();
+        }
+        return -1; // or throw an exception
+    }
+
     public Map<String, Account> getAllAccounts(){
         return accounts;
     }

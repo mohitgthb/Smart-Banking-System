@@ -13,12 +13,19 @@ public class SavingsAccount extends Account {
     }
 
     @Override
-    public void withdraw(double amount) throws InsufficientBalanceException{
-        if(balance >= amount){
+    public void withdraw(double amount) throws InsufficientBalanceException {
+        if (balance >= amount) {
             balance -= amount;
             addTransaction(new Transaction("WITHDRAW", amount));
         } else {
             System.out.println("Insufficient balance");
         }
+    }
+
+    private void readObject(java.io.ObjectInputStream in)
+            throws Exception {
+
+        in.defaultReadObject();
+        this.interestStrategy = new strategy.SavingsInterest();
     }
 }
