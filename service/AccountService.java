@@ -63,13 +63,12 @@ public class AccountService {
         }
     }
 
-    // public double getBalance(String accNo) throws AccountNotFoundException{
-    //     Account acc = repo.getAccount(accNo);
-    //     if(acc != null){
-    //         return repo.getBalance(accNo);
-    //     } else {
-    //         System.out.println("Account not found");
-    //         throw new AccountNotFoundException("Account not found: " + accNo);
-    //     }
-    // }
+    public double getBalance(String accNo) throws AccountNotFoundException {
+        Account acc = repo.getAccount(accNo);
+        if (acc != null) {
+            return acc.getBalance();
+        } else {
+            throw new AccountNotFoundException("Account not found: " + accNo);
+        }
+    }
 }

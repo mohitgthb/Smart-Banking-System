@@ -3,6 +3,7 @@ package app;
 import model.Account;
 import model.SavingsAccount;
 import repository.BankRepository;
+import repository.SqlBankRepository;
 import service.AccountService;
 
 import java.util.Scanner;
@@ -11,8 +12,8 @@ public class Main {
     public static void main(String[] args) {
 
         try (Scanner sc = new Scanner(System.in)) {
-            AccountService service = new AccountService();
-            BankRepository repo = BankRepository.getInstance();
+            BankRepository repo = new SqlBankRepository();
+            AccountService service = new AccountService(repo);
 
             while (true) {
 
@@ -86,7 +87,7 @@ public class Main {
                             break;
 
                         case 6:
-                            repo.saveData();
+                            System.out.println("Exiting...");
                             System.exit(0);
                             break;
 
