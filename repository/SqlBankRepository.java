@@ -88,4 +88,65 @@ public class SqlBankRepository implements BankRepository {
     public Map<String, Account> getAllAccounts() {
         return new HashMap<>();
     }
+
+    @Override
+    public void transfer(String fromAcc, String toAcc, double amount) throws Exception {
+
+        Connection conn = null;
+
+        try {
+            conn = DBconnection.getConnection();
+            conn.setAutoCommit(false); //start transaction
+
+            String checkSql = 
+                "SELECT BALANCE FROM ACCOUNTS WHERE ACCOUNT_NUMBER = ? FOR UPDATE";
+
+            PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+            checkStmt.setString(1, "fromAcc");
+
+            ResultSet rs = checkStmt.executeQuery();
+
+            double senderBalance = rs.getDouble("balance");
+
+            if(senderBalance < amount) 
+                throw new Exception("Insufficient balance");
+
+            String deductSql =
+                "UPDATE ACCOUNTS SET BALANCE = BALANCE - ? WHERE ACCOUNT_NUMBER = ?";
+
+            PreparedStatement deductStmt = conn.prepareStatement(deductSql);
+            deductStmt.setDouble(1, amount);
+            deductStmt.setString(2, "fromAcc");
+            deductStmt.executeQuery();
+
+            String addSql =
+                "UPDATE ACCOUNTS SET BALANCE = BALANCE + ? WHERE ACCOUNT_NUMBER = ?";
+
+            PreparedStatement addStmt = conn.prepareStatement(addSql);
+            addStmt.setDouble(1, amount);
+            addStmt.setString(2, toAcc);
+            int rows = addStmt.executeUpdate();
+
+            if(rows == 0)
+                throw new Exception("Receiver account not found");
+
+            conn.commit(); //success
+
+
+        } catch(Exception e){
+            
+             if(conn != null)
+                conn.rollback();
+
+             throw e;
+
+        } finally {
+
+            if(conn != null)
+                conn.setAutoCommit(true);
+
+            if(conn != null)
+                conn.close();
+        }
+    }
 }

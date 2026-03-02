@@ -12,6 +12,8 @@ public interface BankRepository{
     void updateAccount(Account account);
 
     Map<String, Account> getAllAccounts();
+
+    void transfer(String fromAcc, String toAcc, double amount) throws Exception;
 }
 
 

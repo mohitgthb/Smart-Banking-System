@@ -58,4 +58,16 @@ public class FileBankRepository implements BankRepository{
     public void updateAccount(Account account) {
         accounts.put(account.getAccountNumber(), account);
     }
+
+    @Override
+    public void transfer(String fromAcc, String toAcc, double amount) throws Exception {
+        Account sender = accounts.get(fromAcc);
+        Account receiver = accounts.get(toAcc);
+
+        if (sender == null || receiver == null)
+            throw new Exception("Invalid accounts");
+
+        sender.withdraw(amount);
+        receiver.deposit(amount);
+    }
 }

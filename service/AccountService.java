@@ -48,19 +48,21 @@ public class AccountService {
     }
 
     public void transfer(String fromAcc, String toAcc, double amount)
-            throws AccountNotFoundException, InsufficientBalanceException, Exception{
-        Account sender = repo.getAccount(fromAcc);
-        Account receiver = repo.getAccount(toAcc);
+            throws  Exception {
+        // Account sender = repo.getAccount(fromAcc);
+        // Account receiver = repo.getAccount(toAcc);
 
-        if(sender == null || receiver == null )
-            throw new Exception("Invalid accounts");
+        // if(sender == null || receiver == null )
+        //     throw new Exception("Invalid accounts");
 
-        synchronized(sender){
-            synchronized(receiver){
-                sender.withdraw(amount);
-                receiver.deposit(amount);
-            }
-        }
+        // synchronized(sender){
+        //     synchronized(receiver){
+        //         sender.withdraw(amount);
+        //         receiver.deposit(amount);
+        //     }
+        // }
+
+        repo.transfer(fromAcc, toAcc, amount);
     }
 
     public double getBalance(String accNo) throws AccountNotFoundException {

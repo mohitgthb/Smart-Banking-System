@@ -1,0 +1,21 @@
+# Environment variables (contains DB credentials)
+.env
+
+# Compiled class files
+*.class
+out/
+
+# Serialized data
+*.ser
+
+# IDE / editor
+.vscode/
+.idea/
+*.iml
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Dependencies
+lib/
