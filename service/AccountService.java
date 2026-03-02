@@ -32,6 +32,7 @@ public class AccountService {
         Account acc = repo.getAccount(accNo);
         if(acc != null){
             acc.deposit(amount);
+            repo.updateAccount(acc);
         } else {
             System.out.println("Account not found");
         }
@@ -42,6 +43,7 @@ public class AccountService {
         Account acc = repo.getAccount(accNo);
         if(acc != null){
             acc.withdraw(amount);
+            repo.updateAccount(acc);
         } else {
             System.out.println("Account not found");
         }

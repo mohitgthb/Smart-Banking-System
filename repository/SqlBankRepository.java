@@ -102,9 +102,12 @@ public class SqlBankRepository implements BankRepository {
                 "SELECT BALANCE FROM ACCOUNTS WHERE ACCOUNT_NUMBER = ? FOR UPDATE";
 
             PreparedStatement checkStmt = conn.prepareStatement(checkSql);
-            checkStmt.setString(1, "fromAcc");
+            checkStmt.setString(1, fromAcc);
 
             ResultSet rs = checkStmt.executeQuery();
+
+            if (!rs.next())
+                throw new Exception("Sender account not found");
 
             double senderBalance = rs.getDouble("balance");
 
@@ -116,8 +119,8 @@ public class SqlBankRepository implements BankRepository {
 
             PreparedStatement deductStmt = conn.prepareStatement(deductSql);
             deductStmt.setDouble(1, amount);
-            deductStmt.setString(2, "fromAcc");
-            deductStmt.executeQuery();
+            deductStmt.setString(2, fromAcc);
+            deductStmt.executeUpdate();
 
             String addSql =
                 "UPDATE ACCOUNTS SET BALANCE = BALANCE + ? WHERE ACCOUNT_NUMBER = ?";
