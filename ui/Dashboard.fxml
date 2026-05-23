@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" alignment="CENTER"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="ui.DashboardController">
+
+    <Label text="Smart banking system" />
+
+    <Button text="Create Account" onAction="#createAccount" />
+    <Button text="Deposit" onAction="#deposit"/>
+    <Button text="Withdraw" onAction="#withdraw"/>
+    <Button text="Transfer" onAction="#transfer"/>
+    <Button text="Check Balance" onAction="#checkBalance"/>
+
+</VBox>

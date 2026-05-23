@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="12"
+    alignment="CENTER"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="ui.CreateAccountController">
+
+    <Label text="Create Account" style="-fx-font-size: 20px;" />
+
+    <ComboBox fx:id="typeBox"
+              promptText="Select Account Type"/>
+
+    <TextField fx:id="accNoField"
+               promptText="Account Number"/>
+
+    <TextField fx:id="nameField"
+               promptText="Customer Name"/>
+
+    <TextField fx:id="balanceField"
+               promptText="Initial Balance"/>
+
+    <Button text="Create Account"
+            onAction="#handleCreateAccount"/>
+
+    <Label fx:id="messageLabel"/>
+
+
+</VBox>
