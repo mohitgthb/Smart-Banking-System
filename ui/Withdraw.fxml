@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="12"
+      alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ui.WithdrawController">
+
+    <Label text="Withdraw Money"
+           style="-fx-font-size: 20px;" />
+
+    <TextField fx:id="accNoField"
+               promptText="Account Number"/>
+
+    <TextField fx:id="amountField"
+               promptText="Amount"/>
+
+    <Button text="Withdraw"
+            onAction="#handleWithdraw"/>
+
+    <Label fx:id="messageLabel"/>
+
+</VBox>

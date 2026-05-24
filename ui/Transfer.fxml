@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="12"
+      alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ui.TransferController">
+
+    <Label text="Transfer Money"
+           style="-fx-font-size: 20px;" />
+
+    <TextField fx:id="fromField"
+               promptText="From Account"/>
+
+    <TextField fx:id="toField"
+               promptText="To Account"/>
+
+    <TextField fx:id="amountField"
+               promptText="Amount"/>
+
+    <Button text="Transfer"
+            onAction="#handleTransfer"/>
+
+    <Label fx:id="messageLabel"/>
+
+</VBox>

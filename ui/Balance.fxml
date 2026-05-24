@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="12"
+      alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ui.BalanceController">
+
+    <Label text="Check Balance"
+           style="-fx-font-size: 20px;" />
+
+    <TextField fx:id="accNoField"
+               promptText="Account Number"/>
+
+    <Button text="Check Balance"
+            onAction="#handleBalance"/>
+
+    <Label fx:id="messageLabel"/>
+
+</VBox>

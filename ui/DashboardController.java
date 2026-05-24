@@ -40,21 +40,56 @@ public class DashboardController {
 
     @FXML
     private void deposit() {
-        System.out.println("Deposit clicked");
+        try {
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/ui/Deposit.fxml"));
+
+            Stage stage = new Stage();
+
+            stage.setScene(new Scene(loader.load()));
+
+            stage.setTitle("Deposit");
+
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void withdraw() {
-        System.out.println("Withdraw clicked");
+        openWindow("/ui/Withdraw.fxml", "Withdraw");
     }
 
     @FXML
     private void transfer() {
-        System.out.println("Transfer clicked");
+        openWindow("/ui/Transfer.fxml", "Transfer");
     }
 
     @FXML
     private void checkBalance() {
-        System.out.println("Check balance clicked");
+        openWindow("/ui/Balance.fxml", "Balance");
     }
+
+    private void openWindow(String fxml, String title) {
+
+    try {
+
+        FXMLLoader loader =
+                new FXMLLoader(getClass().getResource(fxml));
+
+        Stage stage = new Stage();
+
+        stage.setScene(new Scene(loader.load()));
+
+        stage.setTitle(title);
+
+        stage.show();
+
+    } catch(Exception e) {
+        e.printStackTrace();
+    }
+}
 }
