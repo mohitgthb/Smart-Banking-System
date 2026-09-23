@@ -1,10 +1,14 @@
 package service;
 
+import java.util.List;
+
 import exception.AccountNotFoundException;
 import exception.InsufficientBalanceException;
 import model.*;
 import repository.BankRepository;
 import factory.*;
+import model.Transaction;
+import java.util.List;
 
 public class AccountService {
     private BankRepository repo;
@@ -75,4 +79,10 @@ public class AccountService {
             throw new AccountNotFoundException("Account not found: " + accNo);
         }
     }
+
+    public List<Transaction> getTransactions(
+        String accountNumber) throws Exception {
+
+    return repo.getTransactions(accountNumber);
+}
 }

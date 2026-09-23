@@ -4,8 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import repository.BankRepository;
-import repository.SqlBankRepository;
 import service.AccountService;
 
 public class BalanceController {
@@ -16,29 +14,31 @@ public class BalanceController {
     @FXML
     private Label messageLabel;
 
-    private AccountService service;
-
-    public BalanceController() {
-
-        BankRepository repo = new SqlBankRepository();
-        service = new AccountService(repo);
-    }
+    private final AccountService service =
+            AppContext.getAccountService();
 
     @FXML
-    private void handleBalance() {
+    private void handleCheckBalance() {
 
         try {
+            String accountNumber = accNoField.getText().trim();
 
-            String accNo = accNoField.getText();
+            if (accountNumber.isEmpty()) {
+                messageLabel.setText(
+                        "Enter account number."
+                );
+                return;
+            }
 
             double balance =
-                    service.getBalance(accNo);
+                    service.getBalance(accountNumber);
 
             messageLabel.setText(
-                    "Balance: ₹" + balance
+                    String.format("Current Balance: ₹%.2f", balance)
             );
 
-        } catch(Exception e) {
+        } catch (Exception e) {
+
             messageLabel.setText(e.getMessage());
         }
     }

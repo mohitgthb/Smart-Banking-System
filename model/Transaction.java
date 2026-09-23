@@ -12,9 +12,17 @@ public class Transaction implements Serializable {
     private LocalDateTime date;
 
     public Transaction(String type, double amount) {
+        this(type, amount, LocalDateTime.now());
+    }
+
+    public Transaction(
+            String type,
+            double amount,
+            LocalDateTime date) {
+
         this.type = type;
         this.amount = amount;
-        this.date = LocalDateTime.now();
+        this.date = date;
     }
 
     public String getType() {
@@ -25,12 +33,12 @@ public class Transaction implements Serializable {
         return amount;
     }
 
-    public LocalDateTime getDate(){
+    public LocalDateTime getDate() {
         return date;
     }
 
     @Override
     public String toString() {
-        return type + ":" + amount + ":" + date;
+        return type + " | ₹" + amount + " | " + date;
     }
 }

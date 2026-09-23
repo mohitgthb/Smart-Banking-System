@@ -15,7 +15,7 @@
                promptText="Account Number"/>
 
     <Button text="Check Balance"
-            onAction="#handleBalance"/>
+            onAction="#handleCheckBalance"/>
 
     <Label fx:id="messageLabel"/>
 

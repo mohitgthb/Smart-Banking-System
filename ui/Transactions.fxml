@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox spacing="15"
+      alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ui.TransactionsController">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label
+        text="Transaction History"
+        style="-fx-font-size: 22px; -fx-font-weight: bold;"
+    />
+
+    <HBox spacing="10">
+
+        <TextField
+            fx:id="accountField"
+            promptText="Account Number"
+        />
+
+        <Button
+            text="Search"
+            onAction="#handleSearch"
+        />
+
+    </HBox>
+
+    <TableView fx:id="transactionTable"
+               prefWidth="500"
+               prefHeight="300">
+
+        <columns>
+
+            <TableColumn
+                fx:id="typeColumn"
+                text="Type"
+                prefWidth="150"
+            />
+
+            <TableColumn
+                fx:id="amountColumn"
+                text="Amount"
+                prefWidth="150"
+            />
+
+            <TableColumn
+                fx:id="dateColumn"
+                text="Date"
+                prefWidth="200"
+            />
+
+        </columns>
+
+    </TableView>
+
+    <Label
+        fx:id="messageLabel"
+        text=""
+    />
+
+</VBox>

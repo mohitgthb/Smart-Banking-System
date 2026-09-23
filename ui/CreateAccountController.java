@@ -5,8 +5,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import repository.BankRepository;
-import repository.SqlBankRepository;
 import service.AccountService;
 
 public class CreateAccountController {
@@ -26,51 +24,59 @@ public class CreateAccountController {
     @FXML
     private Label messageLabel;
 
-    private AccountService service;
-
-    public CreateAccountController() {
-
-        BankRepository repo = new SqlBankRepository();
-        service = new AccountService(repo);
-    }
+    private final AccountService service =
+            AppContext.getAccountService();
 
     @FXML
     public void initialize() {
-
-        typeBox.getItems().addAll(
-                "SAVINGS",
-                "CURRENT"
-        );
+        typeBox.getItems().addAll("SAVINGS", "CURRENT");
     }
 
     @FXML
     private void handleCreateAccount() {
 
         try {
-
             String type = typeBox.getValue();
-            String accNo = accNoField.getText();
-            String name = nameField.getText();
+            String accountNumber = accNoField.getText().trim();
+            String name = nameField.getText().trim();
+            double balance = Double.parseDouble(balanceField.getText());
 
-            double balance =
-                    Double.parseDouble(balanceField.getText());
+            if (type == null ||
+                accountNumber.isEmpty() ||
+                name.isEmpty()) {
+
+                messageLabel.setText("Please fill all fields.");
+                return;
+            }
+
+            if (balance < 0) {
+                messageLabel.setText("Balance cannot be negative.");
+                return;
+            }
 
             service.createAccount(
                     type,
-                    accNo,
+                    accountNumber,
                     name,
                     balance
             );
 
             messageLabel.setText(
-                    "Account Created Successfully!"
+                    "Account created successfully."
             );
 
-        } catch(Exception e) {
+            accNoField.clear();
+            nameField.clear();
+            balanceField.clear();
+            typeBox.setValue(null);
 
-            messageLabel.setText(
-                    e.getMessage()
-            );
+        } catch (NumberFormatException e) {
+
+            messageLabel.setText("Enter a valid balance.");
+
+        } catch (Exception e) {
+
+            messageLabel.setText(e.getMessage());
         }
     }
 }

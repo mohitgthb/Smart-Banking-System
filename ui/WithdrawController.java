@@ -4,8 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import repository.BankRepository;
-import repository.SqlBankRepository;
 import service.AccountService;
 
 public class WithdrawController {
@@ -19,28 +17,40 @@ public class WithdrawController {
     @FXML
     private Label messageLabel;
 
-    private AccountService service;
-
-    public WithdrawController() {
-        BankRepository repo = new SqlBankRepository();
-        service = new AccountService(repo);
-    }
+    private final AccountService service =
+            AppContext.getAccountService();
 
     @FXML
     private void handleWithdraw() {
 
         try {
+            String accountNumber = accNoField.getText().trim();
+            double amount = Double.parseDouble(amountField.getText());
 
-            String accNo = accNoField.getText();
+            if (accountNumber.isEmpty()) {
+                messageLabel.setText("Enter account number.");
+                return;
+            }
 
-            double amount =
-                    Double.parseDouble(amountField.getText());
+            if (amount <= 0) {
+                messageLabel.setText("Amount must be greater than 0.");
+                return;
+            }
 
-            service.withdraw(accNo, amount);
+            service.withdraw(accountNumber, amount);
 
-            messageLabel.setText("Withdraw Successful!");
+            messageLabel.setText(
+                    "₹" + amount + " withdrawn successfully."
+            );
 
-        } catch(Exception e) {
+            amountField.clear();
+
+        } catch (NumberFormatException e) {
+
+            messageLabel.setText("Enter a valid amount.");
+
+        } catch (Exception e) {
+
             messageLabel.setText(e.getMessage());
         }
     }

@@ -1,8 +1,10 @@
 package repository;
 
 import model.Account;
+import model.Transaction;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FileBankRepository implements BankRepository{
@@ -69,5 +71,16 @@ public class FileBankRepository implements BankRepository{
 
         sender.withdraw(amount);
         receiver.deposit(amount);
+    }
+
+    @Override
+    public List<Transaction> getTransactions(String accountNumber) throws Exception {
+        Account account = accounts.get(accountNumber);
+
+        if (account == null) {
+            throw new Exception("Account not found");
+        }
+
+        return account.getTransaction();
     }
 }

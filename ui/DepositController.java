@@ -4,8 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import repository.BankRepository;
-import repository.SqlBankRepository;
 import service.AccountService;
 
 public class DepositController {
@@ -19,35 +17,41 @@ public class DepositController {
     @FXML
     private Label messageLabel;
 
-    private AccountService service;
-
-    public DepositController() {
-
-        BankRepository repo = new SqlBankRepository();
-        service = new AccountService(repo);
-    }
+    private final AccountService service =
+            AppContext.getAccountService();
 
     @FXML
     private void handleDeposit() {
 
         try {
+            String accountNumber = accNoField.getText().trim();
+            double amount = Double.parseDouble(amountField.getText());
 
-            String accNo = accNoField.getText();
+            if (accountNumber.isEmpty()) {
+                messageLabel.setText("Enter account number.");
+                return;
+            }
 
-            double amount =
-                    Double.parseDouble(amountField.getText());
+            if (amount <= 0) {
+                messageLabel.setText("Amount must be greater than 0.");
+                return;
+            }
 
-            service.deposit(accNo, amount);
+            service.deposit(accountNumber, amount);
 
             messageLabel.setText(
-                    "Deposit Successful!"
+                    "₹" + amount + " deposited successfully."
             );
 
-        } catch(Exception e) {
+            amountField.clear();
 
-            messageLabel.setText(
-                    e.getMessage()
-            );
+        } catch (NumberFormatException e) {
+
+            messageLabel.setText("Enter a valid amount.");
+
+        } catch (Exception e) {
+
+            messageLabel.setText(e.getMessage());
         }
     }
 }

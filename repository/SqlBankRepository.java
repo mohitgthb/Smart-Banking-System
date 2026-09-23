@@ -7,6 +7,17 @@ import model.SavingsAccount;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
+import model.Transaction;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+
+import java.time.LocalDateTime;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SqlBankRepository implements BankRepository {
 
@@ -152,4 +163,44 @@ public class SqlBankRepository implements BankRepository {
                 conn.close();
         }
     }
+    @Override
+public List<Transaction> getTransactions(
+        String accountNumber) throws Exception {
+
+    List<Transaction> transactions = new ArrayList<>();
+
+    String sql = """
+            SELECT type, amount, date
+            FROM transactions
+            WHERE account_number = ?
+            ORDER BY date DESC
+            """;
+
+    try (
+        Connection conn = DBconnection.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql)
+    ) {
+
+        ps.setString(1, accountNumber);
+
+        try (ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+
+                String type = rs.getString("type");
+                double amount = rs.getDouble("amount");
+
+                Timestamp timestamp =
+                        rs.getTimestamp("date");
+
+                LocalDateTime date =
+                        timestamp.toLocalDateTime();
+
+                transactions.add(new Transaction(type, amount, date));
+            }
+        }
+    }
+
+    return transactions;
+}
 }
