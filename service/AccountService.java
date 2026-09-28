@@ -1,88 +1,53 @@
 package service;
 
-import java.util.List;
-
 import exception.AccountNotFoundException;
 import exception.InsufficientBalanceException;
-import model.*;
-import repository.BankRepository;
-import factory.*;
+import exception.InvalidAmountException;
+import factory.AccountFactory;
+import model.Account;
 import model.Transaction;
+import repository.BankRepository;
+
 import java.util.List;
 
 public class AccountService {
-    private BankRepository repo;
-
-    // public void createSavingsAccount(String accNo, String name, double balance){
-    //     Account acc = new SavingsAccount(accNo, name, balance);
-    //     repo.addAccount(acc);
-    // }
-
-    // public void createCurrentAccount(String accNo, String name, double balance){
-    //     Account acc = new CurrentAccount(accNo, name, balance);
-    //     repo.addAccount(acc);
-    // }
+    private final BankRepository repo;
 
     public AccountService(BankRepository repo) {
         this.repo = repo;
     }
 
-    public void createAccount(String type, String accNo, String name, double balance){
+    public void createAccount(String type, String accNo, String name, double balance) throws Exception {
+        if (balance < 0) {
+            throw new InvalidAmountException("Opening balance cannot be negative");
+        }
         Account acc = AccountFactory.createAccount(type, accNo, name, balance);
         repo.addAccount(acc);
     }
 
-    public void deposit(String accNo, double amount) throws AccountNotFoundException{
-        Account acc = repo.getAccount(accNo);
-        if(acc != null){
-            acc.deposit(amount);
-            repo.updateAccount(acc);
-        } else {
-            System.out.println("Account not found");
-        }
+    public void deposit(String accNo, double amount)
+            throws AccountNotFoundException, InvalidAmountException {
+        repo.deposit(accNo, amount);
     }
 
-    public void withdraw(String accNo, double amount) 
-            throws AccountNotFoundException, InsufficientBalanceException{
-        Account acc = repo.getAccount(accNo);
-        if(acc != null){
-            acc.withdraw(amount);
-            repo.updateAccount(acc);
-        } else {
-            System.out.println("Account not found");
-        }
+    public void withdraw(String accNo, double amount)
+            throws AccountNotFoundException, InsufficientBalanceException, InvalidAmountException {
+        repo.withdraw(accNo, amount);
     }
 
-    public void transfer(String fromAcc, String toAcc, double amount)
-            throws  Exception {
-        // Account sender = repo.getAccount(fromAcc);
-        // Account receiver = repo.getAccount(toAcc);
-
-        // if(sender == null || receiver == null )
-        //     throw new Exception("Invalid accounts");
-
-        // synchronized(sender){
-        //     synchronized(receiver){
-        //         sender.withdraw(amount);
-        //         receiver.deposit(amount);
-        //     }
-        // }
-
+    public void transfer(String fromAcc, String toAcc, double amount) throws Exception {
         repo.transfer(fromAcc, toAcc, amount);
     }
 
-    public double getBalance(String accNo) throws AccountNotFoundException {
+    public double getBalance(String accNo) throws Exception {
         Account acc = repo.getAccount(accNo);
-        if (acc != null) {
-            return acc.getBalance();
-        } else {
+        if (acc == null) {
             throw new AccountNotFoundException("Account not found: " + accNo);
         }
+        return acc.getBalance();
     }
 
-    public List<Transaction> getTransactions(
-        String accountNumber) throws Exception {
-
-    return repo.getTransactions(accountNumber);
-}
+    public List<Transaction> getTransactions(String accountNumber) throws Exception {
+        return repo.getTransactions(accountNumber);
+    }
 }

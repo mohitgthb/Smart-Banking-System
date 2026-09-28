@@ -2,27 +2,27 @@ package util;
 
 import service.AccountService;
 
-public class TransferTask implements Runnable{
-    
-    private AccountService service;
-    private String from;
-    private String to;
-    private double amount;
+public class TransferTask implements Runnable {
 
-    public TransferTask(AccountService service, String from, String to, double amount){
+    private final AccountService service;
+    private final String from;
+    private final String to;
+    private final double amount;
+
+    public TransferTask(AccountService service, String from, String to, double amount) {
         this.service = service;
         this.from = from;
+        this.to = to;
         this.amount = amount;
     }
 
     @Override
-    public void run(){
-        try{
+    public void run() {
+        try {
             service.transfer(from, to, amount);
-            System.out.println(Thread.currentThread().getName()
-                    + "transfer success");
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(Thread.currentThread().getName() + " transfer success");
+        } catch (Exception e) {
+            System.out.println(Thread.currentThread().getName() + " transfer failed: " + e.getMessage());
         }
     }
 }
